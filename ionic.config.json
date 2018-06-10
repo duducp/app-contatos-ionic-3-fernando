@@ -1,0 +1,8 @@
+{
+  "name": "app-aula-11-05",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
