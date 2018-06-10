@@ -1,23 +1,29 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Contacts, ContactFieldType, ContactFindOptions } from '@ionic-native/contacts';
+import { Contacts, ContactFindOptions } from '@ionic-native/contacts';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { CallNumber } from '@ionic-native/call-number';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  providers: [Contacts]
 })
 export class HomePage {
   contactsfound = [];
   search = false;
+  msg = 'Nenhum contato encontrado';
 
   constructor(
     public navCtrl: NavController,
-    private contacts: Contacts
+    private contacts: Contacts,
+    private emailComposer: EmailComposer,
+    private callNumber: CallNumber
   ) {
   }
 
-  newContact() {
-    // this.navCtrl.push(AddContactPage);
+  newContact(): void {
+    this.navCtrl.push('AddContactPage');
   }
 
   findContact(ev: any) {
@@ -26,15 +32,37 @@ export class HomePage {
     options.multiple = true;
     options.hasPhoneNumber = true;
 
-    this.contacts.find(["displayName", "phoneNumbers", "addresses"], options).then((contacts) => {
+    this.contacts.find(["displayName", "phoneNumbers", "emails"], options).then((contacts) => {
       this.contactsfound = contacts;
-      console.log(JSON.stringify(contacts[0]));
+      console.log(contacts[0]);
     });
 
+    console.log(this.contactsfound)
     if (this.contactsfound.length == 0) {
-      this.contactsfound.push({ displayName: 'No Contacts found' });
+      return this.search = false;
     }
-    this.search = true;
+    return this.search = true;
+  }
+
+  call(number) {
+    console.log(number);
+    this.callNumber.callNumber(number, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
+  }
+
+  sendEmail(email) {
+    console.log(email)
+    let e = {
+      to: email,
+      cc: 'teste@hotmail.com',
+      subject: 'Contato',
+      body: 'Ei, segue em anexo a foto do contato selecionado.',
+      isHtml: false
+    };
+
+    // Send a text message using default options
+    this.emailComposer.open(e);
   }
 
 }

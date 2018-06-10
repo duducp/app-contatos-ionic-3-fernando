@@ -1,19 +1,40 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>
-      Contatos
-    </ion-title>
+    <ion-title>Contatos</ion-title>
   </ion-navbar>
+
+  <ion-toolbar color="primary">
+    <ion-searchbar [showCancelButton]="shouldShowCancel" (ionInput)="findContact($event)" [animated]="true" [autocomplete]="true"
+      placeholder="Pesquisar"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar (ionInput)="findContact($event)" placeholder="Digite o nome do contato"></ion-searchbar>
+  <p text-center [hidden]="search">{{ msg }}</p>
 
   <ion-list [hidden]="!search">
-    <ion-item *ngFor="let item of contactsfound">{{item.displayName}}</ion-item>
+    <ion-item-sliding *ngFor="let item of contactsfound">
+      <ion-item>
+        <h2>{{item.displayName}}</h2>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button (click)="call(item.phoneNumbers[0].value)" color="secondary">
+          <ion-icon name="call"></ion-icon>
+          Ligar
+        </button>
+
+        <button ion-button (click)="sendEmail(item.emails[0].value)" color="primary">
+          <ion-icon name="mail"></ion-icon>
+          Email
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
 
 <ion-footer no-border>
-  <button ion-button block (click)="newContact()">Novo Contato</button>
+  <ion-toolbar>
+    <button no-margin ion-button full (click)="newContact()">Novo Contato</button>
+  </ion-toolbar>
 </ion-footer>
