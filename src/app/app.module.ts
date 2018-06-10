@@ -1,3 +1,6 @@
+import { EmailComposer } from '@ionic-native/email-composer';
+import { CallNumber } from '@ionic-native/call-number';
+import { Contacts } from '@ionic-native/contacts';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -24,6 +27,9 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
+    Contacts,
+    CallNumber,
+    EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

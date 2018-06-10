@@ -1,14 +1,19 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      Ionic Blank
+      Contatos
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-searchbar (ionInput)="findContact($event)" placeholder="Digite o nome do contato"></ion-searchbar>
+
+  <ion-list [hidden]="!search">
+    <ion-item *ngFor="let item of contactsfound">{{item.displayName}}</ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer no-border>
+  <button ion-button block (click)="newContact()">Novo Contato</button>
+</ion-footer>
