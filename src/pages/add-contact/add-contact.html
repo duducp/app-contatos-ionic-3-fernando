@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Novo Contato</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="contactObject.displayName" placeholder="Nome Completo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo Email</ion-label>
+      <ion-select [(ngModel)]="contactObject.emailType">
+        <ion-option value="home">Casa</ion-option>
+        <ion-option value="work">Trabalho</ion-option>
+        <ion-option value="other">Outro</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="contactObject.email" placeholder="E-mail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo Telefone</ion-label>
+      <ion-select [(ngModel)]="contactObject.phoneType">
+        <ion-option value="home">Casa</ion-option>
+        <ion-option value="work">Trabalho</ion-option>
+        <ion-option value="other">Outro</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input type="tel" [(ngModel)]="contactObject.phoneNumber" placeholder="Número Telefone"></ion-input>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+<ion-footer no-border>
+  <button no-margin ion-button block (click)="addContact(contactObject)">Adicionar</button>
+</ion-footer>
